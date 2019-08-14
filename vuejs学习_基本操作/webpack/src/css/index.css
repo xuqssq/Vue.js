@@ -1,0 +1,12 @@
+li {
+    list-style: none;
+    color: #fff;
+}
+
+.box {
+    background-image: url(../images/头像.jpg);
+    width: 1900px;
+    height: 1300px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}

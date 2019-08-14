@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>增删改查</title>
+    <script src="./vuejs/vue.js"></script>
+    <link rel="stylesheet" href="./Bootstrap4/css/bootstrap.css">
+    <style>
+        .panel {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="add">
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title" v-fontSize="100">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    id:
+                    <input type="text" class="form-control" v-model='id'>
+                </label>
+                <label>
+                    name:
+                    <input type="text" class="form-control" v-model='name' @keyUp.Enter="add">
+                </label>
+                <input type="button" value="添加" class="btn btn-primary" @click="add">
+                <label>
+                    搜索关键字:
+                    <input type="text" class="form-control" v-model='keywords' v-focus v-color="'blue'">
+                </label>
+            </div>
+        </div>
+
+
+        <table class="table table-bordered table-hover table-striped ">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>ctime</th>
+                    <th>operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords)" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.ctime | dateFormat('yyyy-mm-dd')}}</td>
+                    <td><a href="" @click.prevent="del(item.id)">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="add2">
+        <h1 v-fontSize="1000">66666666</h1>
+    </div>
+
+</body>
+<script>
+    Vue.filter('dateFormat', function(dateStr, pattern = "") {
+        var dt = new Date(dateStr)
+        var y = dt.getFullYear()
+        var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+        var d = dt.getDate().toString().padStart(2, '0')
+        if (pattern.toLowerCase === 'yyyy-mm-dd') {
+            return y + "-" + m + "-" + d
+        } else {
+            var hh = dt.getHours().toString().padStart(2, '0')
+            var mm = dt.getMinutes().toString().padStart(2, '0')
+            var ss = dt.getSeconds().toString().padStart(2, '0')
+            return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+        }
+    })
+    Vue.directive('focus', {
+        inserted: function(el) {
+            el.focus()
+        }
+    })
+    Vue.directive('color', {
+        bind: function(el, binding) {
+            // el.style.color = 'red'
+            el.style.color = binding.value
+        }
+    })
+    var vm = new Vue({
+        el: '#add',
+        data: {
+            id: '',
+            name: '',
+            keywords: '',
+            list: [{
+                id: 1,
+                name: '嬴政',
+                ctime: new Date()
+            }, {
+                id: 2,
+                name: '刘邦',
+                ctime: new Date()
+            }, {
+                id: 3,
+                name: '项羽',
+                ctime: new Date()
+            }, {
+                id: 4,
+                name: '弄玉',
+                ctime: new Date()
+            }, {
+                id: 5,
+                name: '荆轲',
+                ctime: new Date()
+            }]
+        },
+        methods: {
+            add() {
+                this.list.push({
+                    id: this.id,
+                    name: this.name,
+                    ctime: new Date()
+                })
+                this.id = this.name = ''
+            },
+            del(id) {
+                // this.list.some((item, i) => {
+                //     if (item.id == id) {
+                //         this.list.splice(i, 1)
+                //         return true;
+                //     }
+                // })
+
+                var index = this.list.findIndex(item => {
+                    if (item.id == id) {
+                        return true;
+                    }
+                })
+                this.list.splice(index, 1)
+            },
+            search(keywords) {
+                var newList = []
+                this.list.forEach(item => {
+                    if (item.name.indexOf(keywords) != -1) {
+                        newList.push(item)
+                    }
+
+                })
+                return newList
+            }
+        },
+        filters: {},
+        directives: {
+            'fontsize': function(el, binding) {
+                el.style.fontSize = parseInt(binding.value) + 'px'
+            }
+        },
+    });
+    var vm2 = new Vue({
+        el: '#add2',
+        data: {},
+        directives: {
+            'fontsize': function(el, binding) {
+                el.style.fontSize = parseInt(binding.value) + 'px'
+            }
+        },
+    })
+</script>
+
+</html>

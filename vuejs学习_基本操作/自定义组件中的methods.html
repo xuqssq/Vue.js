@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义组件</title>
+    <script src="./vuejs/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <counter></counter>
+    </div>
+    <template id="mycom">
+            <div>
+                <input type="button" value="++++" @click="jia">
+                <h1>{{count}}</h1>
+            </div>
+        </template>
+
+    <script>
+        Vue.component('counter', {
+            template: '#mycom',
+            data: function() {
+                return {
+                    count: 0
+                }
+
+            },
+            methods: {
+                jia() {
+                    this.count++
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            },
+        });
+    </script>
+</body>
+
+</html>

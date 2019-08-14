@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表动画</title>
+    <script src="./vuejs/vue.min.js"></script>
+    <style>
+        ul li {
+            border: 1px dashed #000;
+            margin: 5px;
+            padding-left: 10px;
+            line-height: 35px;
+            font-size: 15px;
+        }
+        
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all .2s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <label>
+                id:
+                <input type="text" v-model="id">
+            </label>
+
+            <label>
+                name:
+                <input type="text" v-model="name">
+            </label>
+            <input type="button" value="添加" @click="add">
+        </div>
+        <!-- <ul> -->
+        <transition-group appear tag="ul">
+            <li v-for="item in list" :key="item.id">
+                {{item.id}}~~~{{item.name}}
+            </li>
+        </transition-group>
+        <!-- </ul> -->
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id: "",
+                name: '',
+                list: [{
+                    id: 1,
+                    name: '木槿1'
+                }, {
+                    id: 2,
+                    name: '木槿2'
+                }, {
+                    id: 3,
+                    name: '木槿3'
+                }, {
+                    id: 4,
+                    name: '木槿4'
+                }]
+            },
+            methods: {
+                add() {
+                    this.list.push({
+                        id: this.id,
+                        name: this.name
+                    })
+                    this.id = this.name = ""
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

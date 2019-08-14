@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动画过度</title>
+    <script src="./vuejs/vue.min.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(100px)
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: all .8s ease;
+        }
+        
+        .two-enter,
+        .two-leave-to {
+            opacity: 0;
+            transform: translateY(100px)
+        }
+        
+        .two-enter-active,
+        .two-leave-active {
+            transition: all .8s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="切换" @click="flag=!flag">
+        <transition>
+            <h3 v-if="flag">这里有一行字</h3>
+        </transition>
+        <hr>
+
+        <input type="button" value="切换2" @click="flag2=!flag2">
+        <transition name="two">
+            <h3 v-if="flag2">这是第二行字</h3>
+        </transition>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false,
+                flag2: false
+            },
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>

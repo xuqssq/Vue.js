@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>resource基本用法</title>
+    <script src="./vuejs/vue.js"></script>
+    <script src="./vue-resource-develop/dist/vue-resource.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="获取get求" @click="getInfor">
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+            getInfor: function() {
+                this.$http.post('http://vue.studyit.io/api/getlunbo', {}, {
+                    emulateJSON: true
+                }).then(result => {
+                    console.log(result.body)
+                })
+            }
+        }
+    });
+</script>
+
+</html>
